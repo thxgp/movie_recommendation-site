@@ -5,6 +5,7 @@ This is a simple web application that recommends movies based on your favorite o
 ## ✨ Features
 - Search for any movie
 - Get recommended similar movies
+- View movie posters, ratings, and details
 - Sleek and dark-themed UI
 
 ## 💻 Built With
