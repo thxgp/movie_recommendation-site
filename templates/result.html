@@ -2,52 +2,87 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>RecMovies</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top 10 Recommendations</title>
     <style>
         body {
             margin: 0;
-            padding:0;
+            padding: 0;
             font-family: Arial, sans-serif;
-            background: url("/static/bg.jpg") no-repeat center center fixed;
+            background: rgb(97, 66, 66);
             background-size: cover;
-            background-position:center;
             color: white;
-            height:100vh;
-            overflow:hidden;
         }
         .overlay {
-            background-color: rgba(0, 0, 0, 0.6); /* Dark overlay for text contrast */
+            background-color: rgba(0, 0, 0, 0.7);
             min-height: 100vh;
-            padding: 50px;
-            text-align: center;
+            padding: 40px 20px;
         }
         h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
+            font-size: 42px;
+            text-align: center;
+            margin-bottom: 40px;
         }
-        .movie-list {
+        .recommendations-container {
             display: flex;
             justify-content: center;
-            flex-wrap: wrap;
+            gap: 30px;
+            flex-wrap: wrap; /* Allows columns to stack on smaller screens */
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .column {
+            display: flex;
+            flex-direction: column;
             gap: 20px;
-            flex-wrap:nowrap;
+            flex: 1; /* Each column will try to take equal space */
+            min-width: 300px; /* Minimum width before stacking */
         }
         .movie-card {
-            background-color: rgba(255, 255, 255, 0.1);
-            border: 1px solid white;
-            padding: 20px 30px;
-            border-radius: 10px;
-            width: 220px;
-            font-size:18px;
-            font-weight:bold;
-            transition: transform 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            gap: 15px;
+            text-align: left;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            text-decoration: none;
+            color: white;
+            backdrop-filter: blur(10px);
         }
         .movie-card:hover {
-            transform: scale(1.05);
+            transform: translateY(-5px);
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        .movie-poster img {
+            width: 100px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            background-color: #333;
+        }
+        .movie-info {
+            flex: 1;
         }
         .movie-title {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
+            margin: 0 0 8px 0;
+        }
+        .movie-rating {
+            font-size: 14px;
+            color: #FFD700; /* Gold color for rating */
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .movie-overview {
+            font-size: 13px;
+            line-height: 1.5;
+            height: 60px; /* Approx 4 lines */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            opacity: 0.9;
         }
         .back-button {
           display: inline-block;
@@ -58,21 +93,48 @@
           font-weight: bold;
           border-radius: 8px;
           transition: background-color 0.3s ease;
+          border: 1px solid #fff;
         }
         .back-button:hover {
            background-color: #ffffff44;
         }
-
     </style>
 </head>
 <body>
     <div class="overlay">
-        <h1>Top Picks For You</h1>
+        <h1>Top 10 Picks For You</h1>
 
-        <div class="movie-list">
-            {% for movie in recommendations[:5] %}
-                <div class="movie-card">{{ movie }}</div>
-            {% endfor %}
+        <div class="recommendations-container">
+            <!-- Left Column -->
+            <div class="column">
+                {% for movie in recommendations[:5] %}
+                    <a href="{{ url_for('movie_details_page', movie_id=movie.id) }}" class="movie-card">
+                        <div class="movie-poster">
+                            <img src="https://image.tmdb.org/t/p/w200{{ movie.poster_path }}" alt="{{ movie.title }} Poster" onerror="this.style.display='none'">
+                        </div>
+                        <div class="movie-info">
+                            <h3 class="movie-title">{{ movie.title }}</h3>
+                            <p class="movie-rating">⭐ {{ "%.1f"|format(movie.vote_average) }}/10</p>
+                            <p class="movie-overview">{{ movie.overview }}</p>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+            <!-- Right Column -->
+            <div class="column">
+                {% for movie in recommendations[5:] %}
+                     <a href="{{ url_for('movie_details_page', movie_id=movie.id) }}" class="movie-card">
+                        <div class="movie-poster">
+                            <img src="https://image.tmdb.org/t/p/w200{{ movie.poster_path }}" alt="{{ movie.title }} Poster" onerror="this.style.display='none'">
+                        </div>
+                        <div class="movie-info">
+                            <h3 class="movie-title">{{ movie.title }}</h3>
+                            <p class="movie-rating">⭐ {{ "%.1f"|format(movie.vote_average) }}/10</p>
+                            <p class="movie-overview">{{ movie.overview }}</p>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
         </div>
 
         <!-- Go Back Button centered -->

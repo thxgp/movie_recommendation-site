@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ movie.title }} - Details</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: white;
+        }
+        .backdrop {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60vh;
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+        }
+        .backdrop::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, #121212 10%, rgba(18, 18, 18, 0.5) 100%);
+        }
+        .overlay {
+            padding: 50px 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 15vh auto 0 auto;
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .poster img {
+            width: 300px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 2px solid white;
+        }
+        .details {
+            flex: 1;
+            min-width: 300px;
+        }
+        h1 {
+            font-size: 48px;
+            margin: 0 0 10px 0;
+        }
+        .tagline {
+            font-style: italic;
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+        .rating {
+            font-size: 20px;
+            color: #FFD700;
+            margin-bottom: 20px;
+        }
+        h2 {
+            font-size: 24px;
+            border-bottom: 2px solid #FFD700;
+            padding-bottom: 5px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        .overview {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        .meta-info {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .meta-info p {
+            margin: 5px 0;
+        }
+        .genres span {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 14px;
+            margin-right: 5px;
+        }
+        .back-button {
+          display: inline-block;
+          padding: 12px 25px;
+          margin-top: 40px;
+          background-color: #ffffff22;
+          color: #fff;
+          text-decoration: none;
+          font-weight: bold;
+          border-radius: 8px;
+          transition: background-color 0.3s ease;
+          border: 1px solid #fff;
+        }
+        .back-button:hover {
+           background-color: #ffffff44;
+        }
+    </style>
+</head>
+<body>
+    <div class="backdrop" style="background-image: url('https://image.tmdb.org/t/p/original{{ movie.backdrop_path }}')"></div>
+    <div class="overlay">
+        <div class="container">
+            <div class="poster">
+                <img src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" alt="{{ movie.title }} Poster" onerror="this.style.display='none'">
+            </div>
+            <div class="details">
+                <h1>{{ movie.title }} ({{ movie.release_date.split('-')[0] }})</h1>
+                {% if movie.tagline %}<p class="tagline">"{{ movie.tagline }}"</p>{% endif %}
+                <p class="rating">⭐ {{ "%.1f"|format(movie.vote_average) }} / 10 ({{ movie.vote_count }} votes)</p>
+                
+                <div class="genres">
+                    {% for genre in movie.genres %}
+                        <span>{{ genre.name }}</span>
+                    {% endfor %}
+                </div>
+
+                <h2>Overview</h2>
+                <p class="overview">{{ movie.overview }}</p>
+
+                <div class="meta-info">
+                    <p><strong>Status:</strong> {{ movie.status }}</p>
+                    <p><strong>Runtime:</strong> {{ movie.runtime }} minutes</p>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center;">
+            <a href="javascript:history.back()" class="back-button">← Go Back to Recommendations</a>
+        </div>
+    </div>
+</body>
+</html>

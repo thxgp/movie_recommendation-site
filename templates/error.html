@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <style>
+        body {
+            margin: 0;
+            padding:0;
+            font-family: Arial, sans-serif;
+            background: rgb(20, 14, 14);
+            background-size: cover;
+            color: rgb(250, 246, 246);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .overlay-content {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 50px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #FFD700;
+        }
+        p {
+            font-size: 20px;
+            max-width: 500px;
+        }
+        .back-button {
+          display: inline-block;
+          margin-top: 30px;
+          padding: 12px 25px;
+          background-color: #ffffff22;
+          color: #fff;
+          text-decoration: none;
+          font-weight: bold;
+          border-radius: 8px;
+          transition: background-color 0.3s ease;
+          border: 1px solid white;
+        }
+        .back-button:hover {
+           background-color: #ffffff44;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay-content">
+        <h1>Oops!</h1>
+        <p>{{ message }}</p>
+        <a href="{{ url_for('home') }}" class="back-button">← Try Another Movie</a>
+    </div>
+</body>
+</html>
