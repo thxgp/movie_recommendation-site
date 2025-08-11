@@ -26,4 +26,5 @@ This is a simple web application that recommends movies based on your favorite o
 
 ## 📷 Preview
 ![screenshot](static/SS_home_page.png)<br><br>
-![screenshot](static/SS_Result_page.png)
+![screenshot](static/SS_Result_page.png)<br><br>
+![screenshot](static/SS_Result_details.png)
