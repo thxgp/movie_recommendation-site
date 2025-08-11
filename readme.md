@@ -25,7 +25,10 @@ This is a simple web application that recommends movies based on your favorite o
 - requests
 - tmdbv3api (or direct API usage)
 
-## 📷 Preview
-![screenshot](static/SS_home_page.png)<br><br>
-![screenshot](static/SS_Result_page.png)<br><br>
-![screenshot](static/SS_Result_details.png)
+### 🖼️ Preview
+
+![screenshot](static/SS_home_page.png)
+
+![screenshot](static/SS_Result_page.png)
+
+![screenshot](static/SS_details_page.png)
